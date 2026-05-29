@@ -182,7 +182,34 @@ if __name__ == "__main__":
         print("Naive Bayes Error rate: %.1f%%" % err_NB_pca)
         print()
 
+# Domande
+# 1)
+# MVG è il modello che performa meglio (7.0%). Ha la libertà di adattare forma, dimensione e orientamento della campana per ogni classe
+# Naive Bayes è incredibilmente vicino all'MVG (7.2%) nonostante lo abbiamo costretto ad ignorare le correlazioni tra le feature
+# (azzerando tutto fuori dalla diagonale). Non peggiorando di molto, implica che le feature sono naturalmente molto indipendenti
+# Tied è il peggiore (9.3%), forza le due classi ad avere esattamente la stessa matrice di covarianza
 
+# 2)
+# I valori delle feature sono molto vicini allo 0.0, quindi le feature sono debolmente correlate
+# Il Naive Bayes assume che la correlazione sia zero. Essendo la correlazione reale dei dati vicina allo zero, l'approssimazione del Naive Bayes è molto buona
+
+# 3)
+# Anche se le feature 5 e 6 avevano distribuzioni non ottime e non perfettamente a campana, contenevano comunque dettagli preziosi per la distinzione delle classi.
+# Scartare queste informazioni si è rivelato controproducente, essendo il tasso di errore calato da 7.0% a 8.0%
+
+# 4)
+# Tra le feature 1 e 2, l'MVG è quello che performa meglio 36.5%. Questo accade perchè le feature hanno varianze molto diverse tra le due classi.
+# Il Tied invece, costringendo le varianze ad essere uguali, compie una forzatura abbassando le performance
+# Tra le feature 3 e 4, il Tied ha le stesse performance dell'MVG (9.4%). Significa che le feature 3 e 4 hanno varianze quasi identiche.
+# Assumerle uguali diventa una mossa vincente che semplifica il modlelo senza perdere precisione
+
+# 5)
+# La PCA non ha portato miglioramenti. Infatti il miglior risultato si ha con m =5 (7.1%), che non riesce comunque a battere
+# il punteggio di (7.0%) del modello a 6 dimensioni. Questo significa che le 6 feature originali sono già molto compatte e non contengono rumore
+# Con la PCA Naive Bayes peggiora (9,2%). Ciò accade perchè la PCA ruota lo spazio combinando le feature lineamente, creando artificialmente delle correlazioni.
+# Il Naive Bayes, ignorando queste nuove correlazioni, perde colpi
+
+#Concludendo, sul nostro dataset, il modello migliore risulta l'MVG (7.0%) allenato su ttute e 6 le features originali
 
 
 
